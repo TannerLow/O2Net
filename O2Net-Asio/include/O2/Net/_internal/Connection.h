@@ -1,8 +1,12 @@
 #pragma once
+#ifdef _WIN32
+#define _WIN32_WINNT 0x0A00
+#endif
+#define ASIO_STANDALONE
+#include <asio.hpp>
 #include <memory>
 #include <O2/Net/Packet.h>
 #include <O2/Net/ThreadSafeQueue.h>
-#include <asio.hpp>
 #include <iostream>
 
 using asio::ip::tcp;
@@ -48,6 +52,7 @@ namespace o2 {
 								readHeader();
 							}
 							else {
+								// TODO figure out what id means in this context
 								std::cout << '[' << id << "] Failed to connect to server: (" << ec.value() << ") " << ec.message() << "\n";
 							}
 						}
@@ -79,6 +84,13 @@ namespace o2 {
 
 			uint32_t getId() const {
 				return id;
+			}
+
+			std::string getRemoteAddress() const {
+				if (socket.is_open()) {
+					return socket.remote_endpoint().address().to_string();
+				}
+				return std::string();
 			}
 
 			void send(const Packet& packet) {
@@ -171,10 +183,10 @@ namespace o2 {
 
 			void addToIncoming() {
 				if (owner == Owner::Server) {
-					incoming.push({ this->shared_from_this(), inboundPacket });
+					incoming.push({ id, inboundPacket });
 				}
 				else {
-					incoming.push({ nullptr, inboundPacket });
+					incoming.push({ 0, inboundPacket });
 				}
 
 				readHeader();

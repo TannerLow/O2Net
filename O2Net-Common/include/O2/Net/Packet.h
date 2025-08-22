@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <vector>
 #include <memory>
+#include <O2/Net/TypesAliases.h>
 
 namespace o2 {
 	namespace net {
@@ -19,10 +20,8 @@ namespace o2 {
 			}
 		};
 
-		class Connection;
-
 		struct OwnedPacket {
-			std::shared_ptr<Connection> remote = nullptr;
+			ConnectionId remote = 0;
 			Packet packet;
 		};
 	} // namespace net

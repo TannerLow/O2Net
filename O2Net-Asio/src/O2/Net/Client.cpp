@@ -1,13 +1,14 @@
-#pragma once
-
 /////////////////////////////////
 // ASIO Network backend for O2Net
 /////////////////////////////////
-
-#include <O2/Net/Client.h>
+#ifdef _WIN32
+#define _WIN32_WINNT 0x0A00
+#endif
+#define ASIO_STANDALONE
 #include <asio.hpp>
-#include <iostream>
+#include <O2/Net/Client.h>
 #include <O2/Net/_internal/Connection.h>
+#include <iostream>
 
 using asio::ip::tcp;
 
