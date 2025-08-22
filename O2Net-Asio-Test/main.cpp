@@ -38,29 +38,6 @@ public:
 
 int main() {
 
-	//CustomClient client;
-	//
-	//client.connect("localhost", 42069);
-	//
-	//while (!client.isConnected()) {}
-	//
-	//if (client.isConnected()) {
-	//	std::cout << "Connected to the server" << std::endl;
-	//	client.pingServer();
-	//}
-	//
-	//while (true) {
-	//	if (!client.incoming().empty()) {
-	//		o2::net::OwnedPacket packet = client.incoming().front();
-	//		client.incoming().pop();
-	//		if (packet.packet.header.type == (uint32_t)PacketType::PingResponse) {
-	//			std::cout << "Received ping response" << std::endl;
-	//		}
-	//	}
-	//}
-	//
-	//return 0;
-
 	int choice;
 	std::cout << "1 for Client, 2 for Server\n > ";
 	std::cin >> choice;
